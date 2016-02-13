@@ -36,9 +36,14 @@ setup(
         'Topic :: Software Development :: Libraries',
     ],
     packages=find_packages(),
+    zip_safe=False,
+    package_dir={
+        'c4cast': 'c4cast',
+    },
     package_data={
         'c4cast': [
             'version.txt',
+            'assets/*',
         ],
     },
     entry_points={
