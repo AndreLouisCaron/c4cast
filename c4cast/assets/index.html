@@ -6,10 +6,41 @@
    <title>c4cast | cash flow forecast</title>
    <link rel="stylesheet" type="text/css"
          href="bootstrap-v3.3.6/css/bootstrap.min.css" />
+   <link rel="stylesheet" type="text/css" href="app.css" />
  </head>
- <body>Hello, world!</body>
- <script charset="utf-8" src="bootstrap-v3.3.6/js/bootstrap.min.js"></script>
- <script charset="utf-8" src="jquery-v2.2.0.min.js"></script>
- <script charset="utf-8" src="d3-v3.5.14.min.js"></script>
+ <!-- static content. -->
+ <body>
+   <div class="container">
+     <div class="jumbotron">
+       <h1>c4cast | cash flow forecast</h1>
+       <p>A simple little app to project "what if" scenarios!</p>
+     </div>
+   </div>
+   <div class="row">
+     <div class="container">
+       <svg id="graph"></svg>
+     </div>
+   </div>
+ </body>
+ <!-- interactions. -->
+ <script type="text/javascript" charset="utf-8"
+         src="jquery-v2.2.0.min.js"></script>
+ <script type="text/javascript" charset="utf-8"
+         src="bootstrap-v3.3.6/js/bootstrap.min.js"></script>
+ <script type="text/javascript" charset="utf-8"
+         src="d3-v3.5.14.min.js"></script>
+ <script type="text/javascript" charset="utf-8" src="app.js"></script>
+ <script type="text/javascript" charset="utf-8">
+   $(window).load(function(){
+     var date_format = d3.time.format("%d-%b-%y");
+     function type(d) {
+       d.date = date_format.parse(d.date);
+       d.close = +d.close;
+       return d;
+     }
+     d3.tsv("data.tsv", type, function(error, data) {
+       line_chart(d3.select("#graph"), 500, 300, data);
+     });
+   });
  </script>
 </html>
